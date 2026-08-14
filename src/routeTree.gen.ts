@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as MonumentsIndexRouteImport } from './routes/monuments.index'
+import { Route as MonumentsSlugRouteImport } from './routes/monuments.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MonumentsIndexRoute = MonumentsIndexRouteImport.update({
+  id: '/monuments/',
+  path: '/monuments/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MonumentsSlugRoute = MonumentsSlugRouteImport.update({
+  id: '/monuments/$slug',
+  path: '/monuments/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/privacy': typeof PrivacyRoute
+  '/services': typeof ServicesRoute
+  '/terms': typeof TermsRoute
+  '/monuments/$slug': typeof MonumentsSlugRoute
+  '/monuments/': typeof MonumentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/privacy': typeof PrivacyRoute
+  '/services': typeof ServicesRoute
+  '/terms': typeof TermsRoute
+  '/monuments/$slug': typeof MonumentsSlugRoute
+  '/monuments': typeof MonumentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/privacy': typeof PrivacyRoute
+  '/services': typeof ServicesRoute
+  '/terms': typeof TermsRoute
+  '/monuments/$slug': typeof MonumentsSlugRoute
+  '/monuments/': typeof MonumentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/gallery'
+    | '/privacy'
+    | '/services'
+    | '/terms'
+    | '/monuments/$slug'
+    | '/monuments/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/gallery'
+    | '/privacy'
+    | '/services'
+    | '/terms'
+    | '/monuments/$slug'
+    | '/monuments'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/gallery'
+    | '/privacy'
+    | '/services'
+    | '/terms'
+    | '/monuments/$slug'
+    | '/monuments/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  GalleryRoute: typeof GalleryRoute
+  PrivacyRoute: typeof PrivacyRoute
+  ServicesRoute: typeof ServicesRoute
+  TermsRoute: typeof TermsRoute
+  MonumentsSlugRoute: typeof MonumentsSlugRoute
+  MonumentsIndexRoute: typeof MonumentsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/monuments/': {
+      id: '/monuments/'
+      path: '/monuments'
+      fullPath: '/monuments/'
+      preLoaderRoute: typeof MonumentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/monuments/$slug': {
+      id: '/monuments/$slug'
+      path: '/monuments/$slug'
+      fullPath: '/monuments/$slug'
+      preLoaderRoute: typeof MonumentsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  GalleryRoute: GalleryRoute,
+  PrivacyRoute: PrivacyRoute,
+  ServicesRoute: ServicesRoute,
+  TermsRoute: TermsRoute,
+  MonumentsSlugRoute: MonumentsSlugRoute,
+  MonumentsIndexRoute: MonumentsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
