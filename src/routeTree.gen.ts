@@ -14,6 +14,8 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as MonumentsIndexRouteImport } from './routes/monuments.index'
+import { Route as MonumentsSlugRouteImport } from './routes/monuments.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +42,16 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MonumentsIndexRoute = MonumentsIndexRouteImport.update({
+  id: '/monuments/',
+  path: '/monuments/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MonumentsSlugRoute = MonumentsSlugRouteImport.update({
+  id: '/monuments/$slug',
+  path: '/monuments/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +59,8 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
+  '/monuments/$slug': typeof MonumentsSlugRoute
+  '/monuments/': typeof MonumentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +68,8 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
+  '/monuments/$slug': typeof MonumentsSlugRoute
+  '/monuments': typeof MonumentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +78,37 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
+  '/monuments/$slug': typeof MonumentsSlugRoute
+  '/monuments/': typeof MonumentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/privacy' | '/services' | '/terms'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/privacy'
+    | '/services'
+    | '/terms'
+    | '/monuments/$slug'
+    | '/monuments/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/privacy' | '/services' | '/terms'
-  id: '__root__' | '/' | '/about' | '/privacy' | '/services' | '/terms'
+  to:
+    | '/'
+    | '/about'
+    | '/privacy'
+    | '/services'
+    | '/terms'
+    | '/monuments/$slug'
+    | '/monuments'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/privacy'
+    | '/services'
+    | '/terms'
+    | '/monuments/$slug'
+    | '/monuments/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +117,8 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ServicesRoute: typeof ServicesRoute
   TermsRoute: typeof TermsRoute
+  MonumentsSlugRoute: typeof MonumentsSlugRoute
+  MonumentsIndexRoute: typeof MonumentsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +158,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/monuments/': {
+      id: '/monuments/'
+      path: '/monuments'
+      fullPath: '/monuments/'
+      preLoaderRoute: typeof MonumentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/monuments/$slug': {
+      id: '/monuments/$slug'
+      path: '/monuments/$slug'
+      fullPath: '/monuments/$slug'
+      preLoaderRoute: typeof MonumentsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +181,8 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ServicesRoute: ServicesRoute,
   TermsRoute: TermsRoute,
+  MonumentsSlugRoute: MonumentsSlugRoute,
+  MonumentsIndexRoute: MonumentsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
