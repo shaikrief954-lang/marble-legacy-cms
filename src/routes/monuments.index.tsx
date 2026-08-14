@@ -7,11 +7,11 @@ import { RouteError } from "@/components/site/RouteStates";
 import { categoriesQuery, productsQuery, siteContentQuery } from "@/lib/queries";
 import { pick, priceLabel } from "@/lib/site";
 
-type Search = { category?: string };
+type Search = { category?: string | undefined };
 
 export const Route = createFileRoute("/monuments/")({
   validateSearch: (search: Record<string, unknown>): Search => ({
-    category: typeof search.category === "string" && search.category ? search.category : undefined,
+    category: typeof search["category"] === "string" && search["category"] ? (search["category"] as string) : undefined,
   }),
   loaderDeps: ({ search }) => ({ category: search.category }),
   loader: async ({ context, deps }) => {

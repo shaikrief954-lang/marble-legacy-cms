@@ -64,7 +64,7 @@ function MonumentDetail() {
 
   return (
     <SiteLayout>
-      <PageHeader eyebrow="מצבה" title={product.title} description={product.short_description ?? undefined}>
+      <PageHeader eyebrow="מצבה" title={product.title} description={product.short_description}>
         <Breadcrumbs items={[{ label: "מצבות", to: "/monuments" }, { label: product.title }]} />
       </PageHeader>
 

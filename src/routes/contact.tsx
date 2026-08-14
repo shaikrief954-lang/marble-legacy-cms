@@ -55,11 +55,11 @@ function Contact() {
     const form = event.currentTarget;
     const raw = Object.fromEntries(new FormData(form)) as Record<string, string>;
     const parsed = schema.safeParse({
-      name: raw.name ?? "",
-      phone: raw.phone ?? "",
-      email: raw.email ?? "",
-      subject: raw.subject ?? "",
-      message: raw.message ?? "",
+      name: raw["name"] ?? "",
+      phone: raw["phone"] ?? "",
+      email: raw["email"] ?? "",
+      subject: raw["subject"] ?? "",
+      message: raw["message"] ?? "",
     });
     if (!parsed.success) {
       toast.error(parsed.error.issues[0]?.message ?? "נא לבדוק את הפרטים");
@@ -67,11 +67,12 @@ function Contact() {
     }
     setSending(true);
     const { error } = await supabase.from("contact_messages").insert({
-      name: parsed.data.name,
+      full_name: parsed.data.name,
       phone: parsed.data.phone,
       email: parsed.data.email || null,
-      subject: parsed.data.subject || null,
-      message: parsed.data.message,
+      message: parsed.data.subject
+        ? `[${parsed.data.subject}] ${parsed.data.message}`
+        : parsed.data.message,
     });
     setSending(false);
     if (error) {
