@@ -7,7 +7,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { Lightbox } from "@/components/site/Lightbox";
 import { RouteError, RouteNotFound } from "@/components/site/RouteStates";
 import { productQuery, siteContentQuery } from "@/lib/queries";
-import { formatPrice, pick, telHref, whatsappHref } from "@/lib/site";
+import { pick, priceLabel, telHref, whatsappHref } from "@/lib/site";
 
 export const Route = createFileRoute("/monuments/$slug")({
   loader: async ({ context, params }) => {
@@ -98,7 +98,7 @@ function MonumentDetail() {
 
           <Reveal delay={1} className="lg:sticky lg:top-28 lg:self-start">
             <p className="font-serif text-2xl">
-              {formatPrice(product.price, product.show_price, product.price_on_request, pick(t, "price_on_request", "מחיר לפי פנייה"))}
+              {priceLabel(product, pick(t, "price_on_request", "מחיר לפי פנייה"))}
             </p>
             {product.description ? (
               <div className="mt-8 space-y-4 text-sm leading-loose text-muted-foreground">
@@ -145,7 +145,7 @@ function MonumentDetail() {
       </section>
 
       <Lightbox
-        images={images.map((img) => ({ src: img.image_url, alt: img.alt_text ?? product.title }))}
+        images={images.map((img) => ({ image_url: img.image_url, title: img.alt_text ?? product.title }))}
         index={lightbox}
         onClose={() => setLightbox(null)}
       />

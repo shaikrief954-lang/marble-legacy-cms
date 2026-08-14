@@ -5,7 +5,7 @@ import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { Reveal } from "@/components/site/Reveal";
 import { RouteError } from "@/components/site/RouteStates";
 import { categoriesQuery, productsQuery, siteContentQuery } from "@/lib/queries";
-import { formatPrice, pick } from "@/lib/site";
+import { pick, priceLabel } from "@/lib/site";
 
 type Search = { category?: string };
 
@@ -108,7 +108,7 @@ function MonumentsIndex() {
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.short_description}</p>
                   ) : null}
                   <p className="mt-3 text-sm text-muted-foreground">
-                    {formatPrice(p.price, p.show_price, p.price_on_request, pick(t, "price_on_request", "מחיר לפי פנייה"))}
+                    {priceLabel(p, pick(t, "price_on_request", "מחיר לפי פנייה"))}
                   </p>
                 </Link>
               </Reveal>
