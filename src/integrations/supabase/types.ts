@@ -83,6 +83,75 @@ export type Database = {
         }
         Relationships: []
       }
+      directory_entries: {
+        Row: {
+          address: string | null
+          category_label: string | null
+          city: string | null
+          created_at: string
+          description: string | null
+          email: string | null
+          id: string
+          image_url: string | null
+          is_featured: boolean
+          kind: string
+          logo_url: string | null
+          name: string
+          phone: string | null
+          project_images: string[]
+          region: string | null
+          role_label: string | null
+          sort_order: number
+          status: string
+          updated_at: string
+          website_url: string | null
+        }
+        Insert: {
+          address?: string | null
+          category_label?: string | null
+          city?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean
+          kind?: string
+          logo_url?: string | null
+          name: string
+          phone?: string | null
+          project_images?: string[]
+          region?: string | null
+          role_label?: string | null
+          sort_order?: number
+          status?: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Update: {
+          address?: string | null
+          category_label?: string | null
+          city?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean
+          kind?: string
+          logo_url?: string | null
+          name?: string
+          phone?: string | null
+          project_images?: string[]
+          region?: string | null
+          role_label?: string | null
+          sort_order?: number
+          status?: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: []
+      }
       gallery: {
         Row: {
           category_id: string | null
@@ -126,6 +195,90 @@ export type Database = {
             columns: ["category_id"]
             isOneToOne: false
             referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      landing_pages: {
+        Row: {
+          body: string | null
+          bullets: string[]
+          category_id: string | null
+          created_at: string
+          gallery_images: string[]
+          hero_image_url: string | null
+          id: string
+          intro: string | null
+          is_featured: boolean
+          kind: string
+          material_id: string | null
+          seo_description: string | null
+          seo_image_url: string | null
+          seo_title: string | null
+          slug: string
+          sort_order: number
+          status: string
+          subtitle: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string | null
+          bullets?: string[]
+          category_id?: string | null
+          created_at?: string
+          gallery_images?: string[]
+          hero_image_url?: string | null
+          id?: string
+          intro?: string | null
+          is_featured?: boolean
+          kind?: string
+          material_id?: string | null
+          seo_description?: string | null
+          seo_image_url?: string | null
+          seo_title?: string | null
+          slug: string
+          sort_order?: number
+          status?: string
+          subtitle?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string | null
+          bullets?: string[]
+          category_id?: string | null
+          created_at?: string
+          gallery_images?: string[]
+          hero_image_url?: string | null
+          id?: string
+          intro?: string | null
+          is_featured?: boolean
+          kind?: string
+          material_id?: string | null
+          seo_description?: string | null
+          seo_image_url?: string | null
+          seo_title?: string | null
+          slug?: string
+          sort_order?: number
+          status?: string
+          subtitle?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "landing_pages_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "landing_pages_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "materials"
             referencedColumns: ["id"]
           },
         ]
