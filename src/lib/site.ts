@@ -13,7 +13,16 @@ export const NAV_ITEMS = [
   { to: "/monuments", label: "מצבות" },
   { to: "/gallery", label: "עבודות" },
   { to: "/services", label: "שירותים" },
+  { to: "/partners", label: "שותפים" },
   { to: "/contact", label: "צור קשר" },
+] as const;
+
+/** Secondary link groups surfaced in the footer (SEO + directory pages). */
+export const RESOURCE_LINKS = [
+  { to: "/guides", label: "מדריכי מצבות וחומרים" },
+  { to: "/suppliers", label: "ספקי אבן ומתקינים" },
+  { to: "/community", label: "קהילה וארגונים" },
+  { to: "/partners", label: "שותפים ובתי עלמין" },
 ] as const;
 
 export function priceLabel(
