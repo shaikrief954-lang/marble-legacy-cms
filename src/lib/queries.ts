@@ -171,3 +171,89 @@ export const pageQuery = (slug: string) =>
       return data;
     },
   });
+
+export type DirectoryKind = "organization" | "partner" | "supplier";
+
+export type DirectoryEntry = {
+  id: string;
+  kind: DirectoryKind;
+  name: string;
+  role_label: string | null;
+  category_label: string | null;
+  description: string | null;
+  website_url: string | null;
+  phone: string | null;
+  email: string | null;
+  address: string | null;
+  city: string | null;
+  region: string | null;
+  logo_url: string | null;
+  image_url: string | null;
+  project_images: string[];
+  is_featured: boolean;
+  sort_order: number;
+  status: string;
+};
+
+export type LandingPage = {
+  id: string;
+  kind: "category" | "material";
+  slug: string;
+  category_id: string | null;
+  material_id: string | null;
+  title: string;
+  subtitle: string | null;
+  intro: string | null;
+  body: string | null;
+  bullets: string[];
+  hero_image_url: string | null;
+  gallery_images: string[];
+  seo_title: string | null;
+  seo_description: string | null;
+  seo_image_url: string | null;
+  is_featured: boolean;
+  sort_order: number;
+  status: string;
+};
+
+export const directoryQuery = (kind: DirectoryKind) =>
+  queryOptions({
+    queryKey: ["directory", kind],
+    staleTime: 60_000,
+    queryFn: async () =>
+      unwrap<DirectoryEntry[]>(
+        await supabase
+          .from("directory_entries")
+          .select("*")
+          .eq("kind", kind)
+          .order("sort_order", { ascending: true })
+          .order("name", { ascending: true }),
+      ),
+  });
+
+export const landingPagesQuery = (kind?: "category" | "material") =>
+  queryOptions({
+    queryKey: ["landing-pages", kind ?? "all"],
+    staleTime: 60_000,
+    queryFn: async () => {
+      let q = supabase.from("landing_pages").select("*").order("sort_order", { ascending: true });
+      if (kind) q = q.eq("kind", kind);
+      return unwrap<LandingPage[]>(await q);
+    },
+  });
+
+export const landingPageQuery = (kind: "category" | "material", slug: string) =>
+  queryOptions({
+    queryKey: ["landing-page", kind, slug],
+    staleTime: 60_000,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("landing_pages")
+        .select("*")
+        .eq("kind", kind)
+        .eq("slug", slug)
+        .maybeSingle();
+      if (error) throw new Error(error.message);
+      return (data as LandingPage | null) ?? null;
+    },
+  });
