@@ -222,12 +222,12 @@ export const directoryQuery = (kind: DirectoryKind) =>
     staleTime: 60_000,
     queryFn: async () =>
       unwrap<DirectoryEntry[]>(
-        await supabase
+        (await supabase
           .from("directory_entries")
           .select("*")
           .eq("kind", kind)
           .order("sort_order", { ascending: true })
-          .order("name", { ascending: true }),
+          .order("name", { ascending: true })) as never,
       ),
   });
 
@@ -238,7 +238,7 @@ export const landingPagesQuery = (kind?: "category" | "material") =>
     queryFn: async () => {
       let q = supabase.from("landing_pages").select("*").order("sort_order", { ascending: true });
       if (kind) q = q.eq("kind", kind);
-      return unwrap<LandingPage[]>(await q);
+      return unwrap<LandingPage[]>((await q) as never);
     },
   });
 
