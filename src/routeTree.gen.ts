@@ -14,11 +14,14 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SuppliersRouteImport } from './routes/suppliers'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as CategorySlugRouteImport } from './routes/category.$slug'
+import { Route as MaterialSlugRouteImport } from './routes/material.$slug'
 import { Route as MonumentsIndexRouteImport } from './routes/monuments.index'
 import { Route as MonumentsSlugRouteImport } from './routes/monuments.$slug'
 import { Route as ApiPublicMediaSplatRouteImport } from './routes/api/public/media.$'
@@ -48,6 +51,11 @@ const GalleryRoute = GalleryRouteImport.update({
   path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesRoute = GuidesRouteImport.update({
+  id: '/guides',
+  path: '/guides',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PartnersRoute = PartnersRouteImport.update({
   id: '/partners',
   path: '/partners',
@@ -73,6 +81,16 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CategorySlugRoute = CategorySlugRouteImport.update({
+  id: '/category/$slug',
+  path: '/category/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaterialSlugRoute = MaterialSlugRouteImport.update({
+  id: '/material/$slug',
+  path: '/material/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MonumentsIndexRoute = MonumentsIndexRouteImport.update({
   id: '/monuments/',
   path: '/monuments/',
@@ -95,11 +113,14 @@ export interface FileRoutesByFullPath {
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/guides': typeof GuidesRoute
   '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/suppliers': typeof SuppliersRoute
   '/terms': typeof TermsRoute
+  '/category/$slug': typeof CategorySlugRoute
+  '/material/$slug': typeof MaterialSlugRoute
   '/monuments/$slug': typeof MonumentsSlugRoute
   '/monuments/': typeof MonumentsIndexRoute
   '/api/public/media/$': typeof ApiPublicMediaSplatRoute
@@ -110,11 +131,14 @@ export interface FileRoutesByTo {
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/guides': typeof GuidesRoute
   '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/suppliers': typeof SuppliersRoute
   '/terms': typeof TermsRoute
+  '/category/$slug': typeof CategorySlugRoute
+  '/material/$slug': typeof MaterialSlugRoute
   '/monuments/$slug': typeof MonumentsSlugRoute
   '/monuments': typeof MonumentsIndexRoute
   '/api/public/media/$': typeof ApiPublicMediaSplatRoute
@@ -126,11 +150,14 @@ export interface FileRoutesById {
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/guides': typeof GuidesRoute
   '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/suppliers': typeof SuppliersRoute
   '/terms': typeof TermsRoute
+  '/category/$slug': typeof CategorySlugRoute
+  '/material/$slug': typeof MaterialSlugRoute
   '/monuments/$slug': typeof MonumentsSlugRoute
   '/monuments/': typeof MonumentsIndexRoute
   '/api/public/media/$': typeof ApiPublicMediaSplatRoute
@@ -143,11 +170,14 @@ export interface FileRouteTypes {
     | '/community'
     | '/contact'
     | '/gallery'
+    | '/guides'
     | '/partners'
     | '/privacy'
     | '/services'
     | '/suppliers'
     | '/terms'
+    | '/category/$slug'
+    | '/material/$slug'
     | '/monuments/$slug'
     | '/monuments/'
     | '/api/public/media/$'
@@ -158,11 +188,14 @@ export interface FileRouteTypes {
     | '/community'
     | '/contact'
     | '/gallery'
+    | '/guides'
     | '/partners'
     | '/privacy'
     | '/services'
     | '/suppliers'
     | '/terms'
+    | '/category/$slug'
+    | '/material/$slug'
     | '/monuments/$slug'
     | '/monuments'
     | '/api/public/media/$'
@@ -173,11 +206,14 @@ export interface FileRouteTypes {
     | '/community'
     | '/contact'
     | '/gallery'
+    | '/guides'
     | '/partners'
     | '/privacy'
     | '/services'
     | '/suppliers'
     | '/terms'
+    | '/category/$slug'
+    | '/material/$slug'
     | '/monuments/$slug'
     | '/monuments/'
     | '/api/public/media/$'
@@ -189,11 +225,14 @@ export interface RootRouteChildren {
   CommunityRoute: typeof CommunityRoute
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
+  GuidesRoute: typeof GuidesRoute
   PartnersRoute: typeof PartnersRoute
   PrivacyRoute: typeof PrivacyRoute
   ServicesRoute: typeof ServicesRoute
   SuppliersRoute: typeof SuppliersRoute
   TermsRoute: typeof TermsRoute
+  CategorySlugRoute: typeof CategorySlugRoute
+  MaterialSlugRoute: typeof MaterialSlugRoute
   MonumentsSlugRoute: typeof MonumentsSlugRoute
   MonumentsIndexRoute: typeof MonumentsIndexRoute
   ApiPublicMediaSplatRoute: typeof ApiPublicMediaSplatRoute
@@ -236,6 +275,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides': {
+      id: '/guides'
+      path: '/guides'
+      fullPath: '/guides'
+      preLoaderRoute: typeof GuidesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/partners': {
       id: '/partners'
       path: '/partners'
@@ -271,6 +317,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/category/$slug': {
+      id: '/category/$slug'
+      path: '/category/$slug'
+      fullPath: '/category/$slug'
+      preLoaderRoute: typeof CategorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/material/$slug': {
+      id: '/material/$slug'
+      path: '/material/$slug'
+      fullPath: '/material/$slug'
+      preLoaderRoute: typeof MaterialSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/monuments/': {
       id: '/monuments/'
       path: '/monuments'
@@ -301,11 +361,14 @@ const rootRouteChildren: RootRouteChildren = {
   CommunityRoute: CommunityRoute,
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
+  GuidesRoute: GuidesRoute,
   PartnersRoute: PartnersRoute,
   PrivacyRoute: PrivacyRoute,
   ServicesRoute: ServicesRoute,
   SuppliersRoute: SuppliersRoute,
   TermsRoute: TermsRoute,
+  CategorySlugRoute: CategorySlugRoute,
+  MaterialSlugRoute: MaterialSlugRoute,
   MonumentsSlugRoute: MonumentsSlugRoute,
   MonumentsIndexRoute: MonumentsIndexRoute,
   ApiPublicMediaSplatRoute: ApiPublicMediaSplatRoute,
