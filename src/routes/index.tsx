@@ -4,13 +4,16 @@ import { ArrowDown } from "lucide-react";
 import heroStone from "@/assets/hero-stone.jpg";
 import workshop from "@/assets/workshop.jpg";
 import engraving from "@/assets/detail-engraving.jpg";
+import granite360 from "@/assets/granite-360.mp4.asset.json";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Reveal } from "@/components/site/Reveal";
 import { Parallax } from "@/components/site/Parallax";
 import { RouteError } from "@/components/site/RouteStates";
 import {
   categoriesQuery,
+  directoryQuery,
   galleryQuery,
+  landingPagesQuery,
   materialsQuery,
   processQuery,
   productsQuery,
@@ -29,6 +32,8 @@ export const Route = createFileRoute("/")({
       context.queryClient.ensureQueryData(servicesQuery),
       context.queryClient.ensureQueryData(productsQuery()),
       context.queryClient.ensureQueryData(galleryQuery),
+      context.queryClient.ensureQueryData(directoryQuery("supplier")),
+      context.queryClient.ensureQueryData(landingPagesQuery()),
     ]);
   },
   head: () => ({
@@ -58,6 +63,8 @@ function Home() {
   const { data: services } = useQuery(servicesQuery);
   const { data: products } = useQuery(productsQuery());
   const { data: gallery } = useQuery(galleryQuery);
+  const { data: suppliers } = useQuery(directoryQuery("supplier"));
+  const { data: landingPages } = useQuery(landingPagesQuery());
 
   const t = content?.texts;
   const trustItems = pick(t, "trust_items")
@@ -77,11 +84,15 @@ function Home() {
       {/* HERO */}
       <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden">
         <Parallax className="absolute inset-0" strength={0.18}>
-          <img
-            src={heroStone}
-            alt="גוש שיש טבעי בסדנת אבן"
-            width={1920}
-            height={1280}
+          <video
+            src={granite360.url}
+            poster={heroStone}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="סבב 360 מעלות סביב גוש גרניט בסדנת האבן"
             className="size-full object-cover"
           />
         </Parallax>
