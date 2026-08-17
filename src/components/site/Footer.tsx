@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { siteContentQuery } from "@/lib/queries";
-import { NAV_ITEMS, pick, telHref, whatsappHref } from "@/lib/site";
+import { NAV_ITEMS, RESOURCE_LINKS, pick, telHref, whatsappHref } from "@/lib/site";
 
 export function Footer() {
   const { data } = useQuery(siteContentQuery);
@@ -18,7 +18,7 @@ export function Footer() {
 
   return (
     <footer className="mt-32 border-t border-border bg-stone-deep text-background/80">
-      <div className="container-page grid gap-12 py-16 md:grid-cols-3">
+      <div className="container-page grid gap-12 py-16 md:grid-cols-4">
         <div>
           <p className="font-serif text-3xl tracking-[0.18em] text-background">{company}</p>
           <p className="mt-3 text-sm tracking-[0.14em] text-background/60">{tagline}</p>
@@ -29,6 +29,19 @@ export function Footer() {
           <p className="eyebrow text-background/50">ניווט</p>
           <ul className="mt-5 space-y-2 text-sm">
             {NAV_ITEMS.map((item) => (
+              <li key={item.to}>
+                <Link to={item.to} className="transition-colors hover:text-background">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav aria-label="מדריכים וספקים">
+          <p className="eyebrow text-background/50">מדריכים ושותפים</p>
+          <ul className="mt-5 space-y-2 text-sm">
+            {RESOURCE_LINKS.map((item) => (
               <li key={item.to}>
                 <Link to={item.to} className="transition-colors hover:text-background">
                   {item.label}
