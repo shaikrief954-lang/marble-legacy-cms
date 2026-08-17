@@ -4,13 +4,16 @@ import { ArrowDown } from "lucide-react";
 import heroStone from "@/assets/hero-stone.jpg";
 import workshop from "@/assets/workshop.jpg";
 import engraving from "@/assets/detail-engraving.jpg";
+import granite360 from "@/assets/granite-360.mp4.asset.json";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Reveal } from "@/components/site/Reveal";
 import { Parallax } from "@/components/site/Parallax";
 import { RouteError } from "@/components/site/RouteStates";
 import {
   categoriesQuery,
+  directoryQuery,
   galleryQuery,
+  landingPagesQuery,
   materialsQuery,
   processQuery,
   productsQuery,
@@ -29,6 +32,8 @@ export const Route = createFileRoute("/")({
       context.queryClient.ensureQueryData(servicesQuery),
       context.queryClient.ensureQueryData(productsQuery()),
       context.queryClient.ensureQueryData(galleryQuery),
+      context.queryClient.ensureQueryData(directoryQuery("supplier")),
+      context.queryClient.ensureQueryData(landingPagesQuery()),
     ]);
   },
   head: () => ({
@@ -58,6 +63,8 @@ function Home() {
   const { data: services } = useQuery(servicesQuery);
   const { data: products } = useQuery(productsQuery());
   const { data: gallery } = useQuery(galleryQuery);
+  const { data: suppliers } = useQuery(directoryQuery("supplier"));
+  const { data: landingPages } = useQuery(landingPagesQuery());
 
   const t = content?.texts;
   const trustItems = pick(t, "trust_items")
@@ -77,11 +84,15 @@ function Home() {
       {/* HERO */}
       <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden">
         <Parallax className="absolute inset-0" strength={0.18}>
-          <img
-            src={heroStone}
-            alt="גוש שיש טבעי בסדנת אבן"
-            width={1920}
-            height={1280}
+          <video
+            src={granite360.url}
+            poster={heroStone}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="סבב 360 מעלות סביב גוש גרניט בסדנת האבן"
             className="size-full object-cover"
           />
         </Parallax>
@@ -309,6 +320,82 @@ function Home() {
       </section>
 
       {/* TRUST */}
+      {(suppliers ?? []).length > 0 ? (
+        <section className="border-y border-border bg-secondary/40 py-24 md:py-32">
+          <div className="container-page">
+            <Reveal className="flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <p className="eyebrow">ספקים ושותפים</p>
+                <h2 className="display-2 mt-5">{pick(t, "suppliers_title", "מחצבות, ספקי אבן ומתקינים")}</h2>
+                <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
+                  {pick(
+                    t,
+                    "suppliers_subtitle",
+                    "אנו עובדים עם מחצבות, יבואני אבן וצוותי התקנה מוסמכים — כדי שכל שלב, מהגוש ועד ההצבה, יהיה באיכות אחת.",
+                  )}
+                </p>
+              </div>
+              <Link to="/suppliers" className="border-b border-foreground pb-1 text-sm tracking-wide">
+                לכל הספקים והשותפים
+              </Link>
+            </Reveal>
+
+            <div className="mt-14 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
+              {(suppliers ?? []).slice(0, 3).map((supplier, i) => (
+                <Reveal key={supplier.id} delay={((i % 3) + 1) as 1 | 2 | 3} className="bg-background p-8">
+                  <div className="mb-8 aspect-[3/2] overflow-hidden bg-secondary">
+                    {supplier.image_url || supplier.project_images[0] ? (
+                      <img
+                        src={supplier.image_url ?? supplier.project_images[0]}
+                        alt={`פרויקט בשיתוף ${supplier.name}`}
+                        loading="lazy"
+                        className="size-full object-cover transition-transform duration-700 hover:scale-[1.03]"
+                      />
+                    ) : (
+                      <img src={workshop} alt={supplier.name} loading="lazy" className="size-full object-cover" />
+                    )}
+                  </div>
+                  {supplier.category_label ? <p className="eyebrow">{supplier.category_label}</p> : null}
+                  <h3 className="mt-3 font-serif text-2xl">{supplier.name}</h3>
+                  {supplier.description ? (
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{supplier.description}</p>
+                  ) : null}
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {/* GUIDES / SEO LANDING PAGES */}
+      {(landingPages ?? []).length > 0 ? (
+        <section className="container-page py-24 md:py-32">
+          <Reveal className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p className="eyebrow">מדריכים</p>
+              <h2 className="display-2 mt-5">מדריכים לפי סוג מצבה וחומר</h2>
+            </div>
+            <Link to="/guides" className="border-b border-foreground pb-1 text-sm tracking-wide">
+              לכל המדריכים
+            </Link>
+          </Reveal>
+          <ul className="mt-12 grid gap-x-12 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+            {(landingPages ?? []).slice(0, 6).map((page, i) => (
+              <Reveal key={page.id} as="li" delay={((i % 3) + 1) as 1 | 2 | 3} className="border-t border-border pt-6">
+                <Link
+                  to={page.kind === "category" ? "/category/$slug" : "/material/$slug"}
+                  params={{ slug: page.slug }}
+                  className="group"
+                >
+                  <h3 className="font-serif text-xl group-hover:underline">{page.title}</h3>
+                  {page.subtitle ? <p className="mt-2 text-sm text-muted-foreground">{page.subtitle}</p> : null}
+                </Link>
+              </Reveal>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       {trustItems.length > 0 ? (
         <section className="container-page py-24 md:py-32">
           <Reveal>

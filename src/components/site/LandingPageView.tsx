@@ -8,7 +8,7 @@ import type { LandingPage } from "@/lib/queries";
 export function LandingPageView({ page, crumbLabel }: { page: LandingPage; crumbLabel: string }) {
   return (
     <SiteLayout>
-      <PageHeader eyebrow={page.subtitle ?? undefined} title={page.title} description={page.intro}>
+      <PageHeader {...(page.subtitle ? { eyebrow: page.subtitle } : {})} title={page.title} description={page.intro}>
         <Breadcrumbs items={[{ label: crumbLabel, to: "/guides" }, { label: page.title }]} />
       </PageHeader>
 
