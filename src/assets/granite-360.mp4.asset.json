@@ -1,9 +1,11 @@
 {
   "version": 1,
-  "asset_id": "28988e98-256e-4a78-a61e-91f9bb459004",
+  "asset_id": "c228510f-394d-4898-8897-b4ce91935af2",
   "project_id": "d2b50121-1171-4d15-ad21-cc671e8fd56d",
-  "url": "/__l5e/assets-v1/28988e98-256e-4a78-a61e-91f9bb459004/granite-360.mp4",
+  "url": "/__l5e/assets-v1/c228510f-394d-4898-8897-b4ce91935af2/granite-360.mp4",
+  "r2_key": "a/v1/d2b50121-1171-4d15-ad21-cc671e8fd56d/c228510f-394d-4898-8897-b4ce91935af2/granite-360.mp4",
   "original_filename": "granite-360.mp4",
-  "size": 9983148,
-  "created_at": "2026-08-15T09:11:46Z"
+  "size": 1705443,
+  "content_type": "video/mp4",
+  "created_at": "2026-08-18T07:56:18Z"
 }
