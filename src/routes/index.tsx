@@ -96,8 +96,8 @@ function Home() {
             className="size-full object-cover"
           />
         </Parallax>
-        <div className="absolute inset-0 bg-stone-deep/45" />
-        <div className="absolute inset-0 bg-gradient-to-t from-stone-deep/70 via-transparent to-stone-deep/25" />
+        <div className="absolute inset-0 bg-stone-deep/25" />
+        <div className="absolute inset-0 bg-gradient-to-t from-stone-deep/55 via-transparent to-stone-deep/10" />
 
         <div className="relative z-10 flex h-full flex-col items-center justify-center px-5 text-center text-background">
           <p className="animate-stone-in eyebrow text-background/70">GALINOS</p>

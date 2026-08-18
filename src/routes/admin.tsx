@@ -7,6 +7,7 @@ import { RESOURCES } from "@/components/admin/fields";
 import { ResourceManager } from "@/components/admin/ResourceManager";
 import { MessagesPanel } from "@/components/admin/MessagesPanel";
 import { ContentPanel } from "@/components/admin/ContentPanel";
+import { ImportPhotosPanel } from "@/components/admin/ImportPhotosPanel";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -24,6 +25,7 @@ export const Route = createFileRoute("/admin")({
 
 const TABS = [
   { key: "messages", label: "פניות" },
+  { key: "import", label: "ייבוא תמונות" },
   ...RESOURCES.map((resource) => ({ key: resource.key, label: resource.label })),
   { key: "texts", label: "טקסטים" },
   { key: "settings", label: "הגדרות" },
@@ -94,6 +96,7 @@ function AdminPage() {
 
       <main className="container-page py-12">
         {tab === "messages" ? <MessagesPanel /> : null}
+        {tab === "import" ? <ImportPhotosPanel /> : null}
         {tab === "texts" ? <ContentPanel mode="texts" /> : null}
         {tab === "settings" ? <ContentPanel mode="settings" /> : null}
         {resource ? <ResourceManager key={resource.key} resource={resource} /> : null}
